@@ -18,5 +18,5 @@ module.exports = async function(deployer, network, accounts) {
     // Tokens are stored as integers, so 1,000,000 + 18 decimal places (0's) = 100000000000000000000000
     await dappToken.transfer(tokenFarm.address, '1000000000000000000000000')
 
-    await daiToken.transfer(accounts[1], '1000000000000000000000000')
+    await daiToken.transfer(accounts[1], '100000000000000000000')
 }

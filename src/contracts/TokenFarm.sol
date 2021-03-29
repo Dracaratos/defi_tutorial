@@ -45,13 +45,28 @@ contract TokenFarm {
 
     // 2. Unstaking Tokens
 
-    // 3. Issuing Tokens
+    function unstakeTokens() public {
+        // Fetch the staking balance
+        uint256 balance = stakingBalance[msg.sender];
+
+        // Check that they have tokens
+        require(balance > 0, "staking balance cannot be 0");
+
+        //Transfer Mock Dai tokens back to the user
+        daiToken.transfer(msg.sender, balance);
+
+        // Set their staking balance
+        stakingBalance[msg.sender] = 0;
+
+        // Set their staking status back to false
+        isStaking[msg.sender] = false;
+    }
 
     function issueTokens() public {
         // Only owner can call this function
         require(msg.sender == owner, "caller must be the owner");
 
-        // Loop through stakers and issue
+        // Loop through stakers and issue tokens
         for (uint256 i = 0; i < stakers.length; i++) {
             address recipient = stakers[i];
             uint256 balance = stakingBalance[recipient];
